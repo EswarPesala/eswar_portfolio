@@ -6,10 +6,8 @@ import Alert from '../components/Alert.jsx';
 
 const Contact = () => {
   const formRef = useRef();
-
   const { alert, showAlert, hideAlert } = useAlert();
   const [loading, setLoading] = useState(false);
-
   const [form, setForm] = useState({ name: '', email: '', message: '' });
 
   const handleChange = ({ target: { name, value } }) => {
@@ -22,23 +20,23 @@ const Contact = () => {
 
     emailjs
       .send(
-        import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
+        'service_4ambh8s', // Your Service ID
+        'template_7uwnrfu', // Your Template ID
         {
           from_name: form.name,
-          to_name: 'JavaScript Mastery',
+          to_name: 'Eswar Pesala',
           from_email: form.email,
-          to_email: 'sujata@jsmastery.pro',
+          to_email: 'pesalaeswar7@gmail.com',
           message: form.message,
         },
-        import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY,
+        'ujnkLNvQjA1QnWdwy', // Your Public Key
       )
       .then(
         () => {
           setLoading(false);
           showAlert({
             show: true,
-            text: 'Thank you for your message 😃',
+            text: `Thank you, ${form.name}, your message has been sent successfully! 😃`,
             type: 'success',
           });
 
@@ -49,15 +47,14 @@ const Contact = () => {
               email: '',
               message: '',
             });
-          }, [3000]);
+          }, 3000);
         },
         (error) => {
           setLoading(false);
           console.error(error);
-
           showAlert({
             show: true,
-            text: "I didn't receive your message 😢",
+            text: "I didn't receive your message 😢 Please try again!",
             type: 'danger',
           });
         },
@@ -74,8 +71,7 @@ const Contact = () => {
         <div className="contact-container">
           <h3 className="head-text">Let's talk</h3>
           <p className="text-lg text-white-600 mt-3">
-            Whether you’re looking to build a new website, improve your existing platform, or bring a unique project to
-            life, I’m here to help.
+            I'm always eager to learn and take on new challenges. Whether it's experimenting with different technologies, building creative projects, or improving my skills, I'm excited about every step of the journey!
           </p>
 
           <form ref={formRef} onSubmit={handleSubmit} className="mt-12 flex flex-col space-y-7">
@@ -88,7 +84,7 @@ const Contact = () => {
                 onChange={handleChange}
                 required
                 className="field-input"
-                placeholder="ex., John Doe"
+                placeholder="ex., Eswar Pesala"
               />
             </label>
 
@@ -101,7 +97,7 @@ const Contact = () => {
                 onChange={handleChange}
                 required
                 className="field-input"
-                placeholder="ex., johndoe@gmail.com"
+                placeholder="ex., eshuu@gmail.com"
               />
             </label>
 
@@ -120,7 +116,6 @@ const Contact = () => {
 
             <button className="field-btn" type="submit" disabled={loading}>
               {loading ? 'Sending...' : 'Send Message'}
-
               <img src="/assets/arrow-up.png" alt="arrow-up" className="field-btn_arrow" />
             </button>
           </form>
